@@ -42,7 +42,8 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        let bottomSheetVC = BottomSheetViewController(contentVC: UIViewController())
+        let contentVC = ContetnViewController()
+        let bottomSheetVC = BottomSheetViewController(contentVC: contentVC)
         self.present(bottomSheetVC, animated: false)
     }
 }
