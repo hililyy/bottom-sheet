@@ -7,10 +7,13 @@
 
 import UIKit
 
-class ContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     let contentView = ContentView()
-    
+    var isInitPositionZero = false
+    var isFlag = false
+    var isMinus = false
+    var lastScrollYposition: CGFloat = 0
     override func loadView() {
         view = contentView
     }
@@ -30,6 +33,35 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard let cell = contentView.tableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath) as? ContentTableViewCell else { return UITableViewCell() }
         cell.titleLabel.text = "text\(indexPath.row)"
         return cell
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isFlag = false
+        
+        if scrollView.contentOffset.y <= 0 {
+            isInitPositionZero = true
+            
+        } else {
+            isInitPositionZero = false
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        lastScrollYposition = scrollView.contentOffset.y
+        
+        if isInitPositionZero && !isFlag {
+            isFlag = true
+            if lastScrollYposition <= 0 {
+                
+                isMinus = true
+            } else {
+                isMinus = false
+            }
+        }
+        
+        if isMinus {
+            view.isUserInteractionEnabled = false
+        }
     }
 }
 
@@ -65,10 +97,10 @@ class ContentView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            tableView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            tableView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            tableView.topAnchor.constraint(equalTo: topAnchor),
+            tableView.leftAnchor.constraint(equalTo: leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

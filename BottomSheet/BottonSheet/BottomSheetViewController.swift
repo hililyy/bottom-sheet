@@ -71,16 +71,6 @@ final class BottomSheetViewController: UIViewController {
         contentVC.didMove(toParent: self)
     }
     
-    private func getTopSafeArea() -> CGFloat {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first(where: { $0.isKeyWindow }),
-           let root = window.rootViewController {
-            return root.view.safeAreaInsets.top
-        }
-        
-        return 0
-    }
-    
     private func initConstraints() {
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         bottomSheetView.translatesAutoresizingMaskIntoConstraints = false
@@ -133,9 +123,19 @@ final class BottomSheetViewController: UIViewController {
         
         switch panGestureRecognizer.state {
         case .began:
+            
+            let vc = contentVC as! ContentViewController
+            if  translation.y < 0 {
+                contentVC.view.isUserInteractionEnabled = true
+            }
             bottomSheetPanStartingTopConstant = bottomSheetViewTopConstraint.constant
             
         case .changed:
+            
+            let vc = contentVC as! ContentViewController
+            if  translation.y < 0 {
+                contentVC.view.isUserInteractionEnabled = true
+            }
             if bottomSheetPanStartingTopConstant + translation.y > fullPositionMinTopConstant {
                 bottomSheetViewTopConstraint.constant = bottomSheetPanStartingTopConstant + translation.y
             }
@@ -149,7 +149,7 @@ final class BottomSheetViewController: UIViewController {
             }
             
             if dragSpeed.y < -1500 {
-                showBottomSheet(atState: .full)
+                showBottomSheet(state: .full)
                 return
             }
             
@@ -160,8 +160,8 @@ final class BottomSheetViewController: UIViewController {
         }
     }
     
-    private func showBottomSheet(atState: BottomSheetViewPosition = .half) {
-        if atState == .half {
+    private func showBottomSheet(state: BottomSheetViewPosition = .half) {
+        if state == .half {
             let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
             let bottomPadding: CGFloat = view.safeAreaInsets.bottom
             bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding - halfPositionViewHeight
@@ -169,13 +169,12 @@ final class BottomSheetViewController: UIViewController {
             bottomSheetViewTopConstraint.constant = fullPositionMinTopConstant
         }
         
-        UIView.animate(withDuration: 0.25,
+        UIView.animate(withDuration: 0.25, 
                        delay: 0,
-                       options: .curveEaseIn,
-                       animations: {
+                       options: .curveEaseIn) {
             self.dimmedView.alpha = self.dimAlphaWithBottomSheetTopConstraint(value: self.bottomSheetViewTopConstraint.constant)
             self.view.layoutIfNeeded()
-        })
+        }
     }
     
     private func hideBottomSheetAndGoBack() {
@@ -184,13 +183,13 @@ final class BottomSheetViewController: UIViewController {
         
         bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
         
-        UIView.animate(withDuration: 0.25,
+        UIView.animate(withDuration: 0.25, 
                        delay: 0,
-                       options: .curveEaseIn,
-                       animations: {
+                       options: .curveEaseIn) {
             self.dimmedView.alpha = 0.0
             self.view.layoutIfNeeded()
-        }) { _ in
+            
+        } completion: { _ in
             if self.presentingViewController != nil {
                 self.dismiss(animated: false)
             }
@@ -209,10 +208,10 @@ final class BottomSheetViewController: UIViewController {
         
         switch nearestState {
         case .full:
-            showBottomSheet(atState: .full)
+            showBottomSheet(state: .full)
             
         case .half:
-            showBottomSheet(atState: .half)
+            showBottomSheet(state: .half)
             
         case .empty:
             hideBottomSheetAndGoBack()
@@ -220,7 +219,8 @@ final class BottomSheetViewController: UIViewController {
     }
     
     private func getNearest(to number: CGFloat, positionConstraintsToTop values: [CGFloat]) -> BottomSheetViewPosition {
-        guard let nearestValue = values.min(by: { abs(number - $0) < abs(number - $1) }) else { return .full }
+        guard let nearestValue = values.min(by: { abs(number - $0) < abs(number - $1) }) 
+        else { return .full }
         
         switch nearestValue {
         case values[0]:
@@ -246,10 +246,21 @@ final class BottomSheetViewController: UIViewController {
         if value < fullDimPosition {
             return fullDimAlpha
         }
+        
         if value > noDimPosition {
             return 0.0
         }
         
         return fullDimAlpha * (1 - ((value - fullDimPosition) / (noDimPosition - fullDimPosition)))
+    }
+    
+    private func getTopSafeArea() -> CGFloat {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first(where: { $0.isKeyWindow }),
+           let root = window.rootViewController {
+            return root.view.safeAreaInsets.top
+        }
+        
+        return 0
     }
 }
