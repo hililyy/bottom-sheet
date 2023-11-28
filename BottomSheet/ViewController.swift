@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .systemTeal
         initSubView()
         initConstraints()
         initTarget()
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        let contentVC = ContetnViewController()
+        let contentVC = ContentViewController()
         let bottomSheetVC = BottomSheetViewController(contentVC: contentVC)
         self.present(bottomSheetVC, animated: false)
     }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		022CB9732AEF36ED0055CABA /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022CB9722AEF36ED0055CABA /* Enum.swift */; };
-		024CBC082AF4E5760076267F /* ContetnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CBC072AF4E5760076267F /* ContetnViewController.swift */; };
+		024CBC082AF4E5760076267F /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CBC072AF4E5760076267F /* ContentViewController.swift */; };
 		02FD78402AEBB74600122A49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FD783F2AEBB74600122A49 /* AppDelegate.swift */; };
 		02FD78422AEBB74600122A49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FD78412AEBB74600122A49 /* SceneDelegate.swift */; };
 		02FD78442AEBB74600122A49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FD78432AEBB74600122A49 /* ViewController.swift */; };
@@ -19,7 +19,7 @@
 
 /* Begin PBXFileReference section */
 		022CB9722AEF36ED0055CABA /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
-		024CBC072AF4E5760076267F /* ContetnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContetnViewController.swift; sourceTree = "<group>"; };
+		024CBC072AF4E5760076267F /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		02FD783C2AEBB74600122A49 /* BottomSheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BottomSheet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02FD783F2AEBB74600122A49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02FD78412AEBB74600122A49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 				02FD783F2AEBB74600122A49 /* AppDelegate.swift */,
 				02FD78412AEBB74600122A49 /* SceneDelegate.swift */,
 				02FD78432AEBB74600122A49 /* ViewController.swift */,
-				024CBC072AF4E5760076267F /* ContetnViewController.swift */,
+				024CBC072AF4E5760076267F /* ContentViewController.swift */,
 				02FD78482AEBB74700122A49 /* Assets.xcassets */,
 				02FD784A2AEBB74700122A49 /* LaunchScreen.storyboard */,
 				02FD784D2AEBB74700122A49 /* Info.plist */,
@@ -155,7 +155,7 @@
 				02FD78402AEBB74600122A49 /* AppDelegate.swift in Sources */,
 				02FD78422AEBB74600122A49 /* SceneDelegate.swift in Sources */,
 				022CB9732AEF36ED0055CABA /* Enum.swift in Sources */,
-				024CBC082AF4E5760076267F /* ContetnViewController.swift in Sources */,
+				024CBC082AF4E5760076267F /* ContentViewController.swift in Sources */,
 				02FD78542AEBB79300122A49 /* BottomSheetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

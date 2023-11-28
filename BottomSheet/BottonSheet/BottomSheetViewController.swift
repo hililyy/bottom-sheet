@@ -20,14 +20,14 @@ final class BottomSheetViewController: UIViewController {
     
     private let dimmedView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
+        view.backgroundColor = .black
         view.alpha = 0.0
         return view
     }()
     
     private let dragIndicatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .lightGray
         view.layer.cornerRadius = 3
         return view
     }()
@@ -72,9 +72,13 @@ final class BottomSheetViewController: UIViewController {
     }
     
     private func getTopSafeArea() -> CGFloat {
-        guard let root = UIApplication.shared.keyWindow?.rootViewController else { return 0 }
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first(where: { $0.isKeyWindow }),
+           let root = window.rootViewController {
+            return root.view.safeAreaInsets.top
+        }
         
-        return root.view.safeAreaInsets.top
+        return 0
     }
     
     private func initConstraints() {
@@ -135,6 +139,7 @@ final class BottomSheetViewController: UIViewController {
             if bottomSheetPanStartingTopConstant + translation.y > fullPositionMinTopConstant {
                 bottomSheetViewTopConstraint.constant = bottomSheetPanStartingTopConstant + translation.y
             }
+            
             dimmedView.alpha = dimAlphaWithBottomSheetTopConstraint(value: bottomSheetViewTopConstraint.constant)
             
         case .ended:

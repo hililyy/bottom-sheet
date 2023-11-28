@@ -1,5 +1,5 @@
 //
-//  ContetnViewController.swift
+//  ContentViewController.swift
 //  BottomSheet
 //
 //  Created by 강조은 on 2023/11/03.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContetnViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let contentView = ContentView()
     
